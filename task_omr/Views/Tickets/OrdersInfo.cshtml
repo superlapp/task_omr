@@ -1,0 +1,66 @@
+﻿@model IEnumerable<task_omr.Helpers.OrderInfo>
+
+@{
+    ViewBag.Title = "OrdersInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Route
+        </th>
+        <th>
+            Departure
+        </th>
+        <th>
+            Arrival
+        </th>
+        <th>
+            Seat Num.
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoyageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArrDT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @using (Html.BeginForm())
+            {
+                if (item.Status != "Purchased")
+                {
+                    @Html.ActionLink("Buy", "ProcessOrder", "Tickets", new { process = "purchase", orderId = item.OrderId }, null)
+                    @Html.ActionLink("Delete", "ProcessOrder", "Tickets", new { process = "delete", orderId = item.OrderId }, null)
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

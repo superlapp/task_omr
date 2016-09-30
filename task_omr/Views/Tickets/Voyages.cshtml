@@ -1,0 +1,64 @@
+﻿@model IEnumerable<task_omr.Voyage>
+
+@{
+    ViewBag.Title = "Voyages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Voyages</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Caption
+        </th>
+        <th>
+            Seats
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Departure
+        </th>
+        <th>
+            Arrival
+        </th>
+        <th>
+            Travel Time
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoyageNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoyageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketCost) RUB
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArrDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TravelTime)
+        </td>
+        <td>
+            @Html.ActionLink("Reserve", "ReserveTicket", "Tickets", new { voyageID = item.Id }, null)
+        </td>
+    </tr>
+}
+
+</table>

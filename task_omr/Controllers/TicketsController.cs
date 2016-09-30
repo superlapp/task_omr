@@ -34,8 +34,6 @@ namespace task_omr.Controllers
             int p2 = 0;
             int p3 = 0;
             //
-            bool add = false;
-            //
             var busStops = db.BusStops.Where(x => x.Name.Trim().ToUpper().Contains(so.BusStopName.ToUpper()));
             foreach (BusStop bs in busStops)
             {
@@ -43,38 +41,33 @@ namespace task_omr.Controllers
                 //
                 foreach (Voyage v in voyages)
                 {
-                    //if (so.IsDepStation == true)
-                    //{
-                    //    if (so.IsDepStation.Equals(true))
-                    //    {
-                    //        fc++;
-                    //        if (v.DepBusStopID.Equals(bs.Id))
-                    //        {
-                    //            p1++;
-                    //        }
-                    //    }
-                    //    if (so.IsArrStation.Equals(true))
-                    //    {
-                    //        fc++;
-                    //        if (v.ArrBusStopID.Equals(bs.Id))
-                    //        {
-                    //            p2++;
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (so.IsDepStation == true && so.IsArrStation == true)
-                    //    {
-                    //        if (so.IsDepStation.Equals(true))
-                    //        {
-                    //            fc++;
-                    //            fc++;
-                    //            p1++;
-                    //            p2++;
-                    //        }
-                    //    }
-                    //}
+                    if (so.IsDepStation == true && so.IsArrStation == true)
+                    {
+                        fc++;
+                        p1++;
+                    }
+                    else
+                    {
+                        if (so.IsDepStation == true)
+                        {
+                            fc++;
+                            if (v.DepBusStopID.Equals(bs.Id))
+                            {
+                                p1++;
+                            }
+                        }
+                        else
+                        {
+                            if (so.IsArrStation == true)
+                            {
+                                fc++;
+                                if (v.ArrBusStopID.Equals(bs.Id))
+                                {
+                                    p2++;
+                                }
+                            }
+                        }
+                    }
 
                     if (so.UseDT == true)
                     {
@@ -84,23 +77,25 @@ namespace task_omr.Controllers
                         {
                             p3++;
                         }
-                        bool k = true;
                     }
 
                     //---------------------------------------------------------
-                    if (fc == (p1 + p2 + p3))
+                    if (fc != 0)
                     {
-                        SearchBusStopResult ss = new SearchBusStopResult();
-                        ss.BusStopName = bs.Name;
-                        ss.DepDateTime = v.DepDateTime.ToString();
-                        ss.VoyageName = v.VoyageName;
-                        result.Add(ss);
+                        if (fc == (p1 + p2 + p3))
+                        {
+                            SearchBusStopResult ss = new SearchBusStopResult();
+                            ss.BusStopName = bs.Name;
+                            ss.DepDateTime = v.DepDateTime.ToString();
+                            ss.VoyageName = v.VoyageName;
+                            result.Add(ss);
+                        }
+                        //
+                        fc = 0;
+                        p1 = 0;
+                        p2 = 0;
+                        p3 = 0;
                     }
-                    //
-                    fc = 0;
-                    p1 = 0;
-                    p2 = 0;
-                    p3 = 0;
                 }
             }
             //

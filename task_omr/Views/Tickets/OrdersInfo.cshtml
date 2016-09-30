@@ -55,7 +55,7 @@
             {
                 if (item.Status != "Purchased")
                 {
-                    @Html.ActionLink("Buy", "ProcessOrder", "Tickets", new { process = "purchase", orderId = item.OrderId }, null)
+                    @Html.ActionLink("Buy   ", "ProcessOrder", "Tickets", new { process = "purchase", orderId = item.OrderId }, null)
                     @Html.ActionLink("Delete", "ProcessOrder", "Tickets", new { process = "delete", orderId = item.OrderId }, null)
                 }
             }

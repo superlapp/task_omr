@@ -34,20 +34,6 @@
           <Property Name="Description" Type="nchar" MaxLength="50" />
           <Property Name="Status" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderInfoes">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="VoyageId" Type="int" Nullable="false" />
-          <Property Name="VoyageName" Type="nvarchar(max)" />
-          <Property Name="DepDT" Type="datetime" Nullable="false" />
-          <Property Name="ArrDT" Type="datetime" Nullable="false" />
-          <Property Name="SeatNumber" Type="int" Nullable="false" />
-          <Property Name="Price" Type="nvarchar(max)" />
-          <Property Name="Status" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="Id" />
@@ -85,7 +71,6 @@
         <EntityContainer Name="TicketsDBModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BusStops" EntityType="Self.BusStops" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfoes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voyages" EntityType="Self.Voyages" Schema="dbo" store:Type="Tables" />
@@ -124,20 +109,6 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="OrderInfo">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="VoyageId" Type="Int32" Nullable="false" />
-          <Property Name="VoyageName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DepDT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ArrDT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SeatNumber" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
@@ -175,7 +146,6 @@
         <EntityContainer Name="TicketsDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="BusStops" EntityType="Self.BusStop" />
-          <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
           <EntitySet Name="Voyages" EntityType="Self.Voyage" />
@@ -213,21 +183,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderInfoes">
-            <EntityTypeMapping TypeName="TicketsDBModel.OrderInfo">
-              <MappingFragment StoreEntitySet="OrderInfoes">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="VoyageId" ColumnName="VoyageId" />
-                <ScalarProperty Name="VoyageName" ColumnName="VoyageName" />
-                <ScalarProperty Name="DepDT" ColumnName="DepDT" />
-                <ScalarProperty Name="ArrDT" ColumnName="ArrDT" />
-                <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -172,10 +172,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AspNetUser.cs">
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BusStop.cs">
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,37 +197,33 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Ticket.cs">
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketsDB.Context.cs">
+    <Compile Include="TicketsDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketsDB.Context.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketsDB.cs">
+    <Compile Include="TicketsDBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="TicketsDB.Designer.cs">
+    <Compile Include="TicketsDBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TicketsDB.edmx</DependentUpon>
+      <DependentUpon>TicketsDBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Voyage.cs">
-      <DependentUpon>TicketsDB.tt</DependentUpon>
+      <DependentUpon>TicketsDBModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TicketsDB.mdf" />
-    <Content Include="App_Data\TicketsDB_log.ldf">
-      <DependentUpon>TicketsDB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -292,22 +288,22 @@
     <Content Include="Views\Tickets\ReserveTicket.cshtml" />
     <Content Include="Views\Tickets\OrdersInfo.cshtml" />
     <Content Include="Views\Tickets\ProcessOrder.cshtml" />
-    <EntityDeploy Include="TicketsDB.edmx">
+    <EntityDeploy Include="TicketsDBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TicketsDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>TicketsDBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="TicketsDB.Context.tt">
+    <Content Include="TicketsDBModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketsDB.edmx</DependentUpon>
-      <LastGenOutput>TicketsDB.Context.cs</LastGenOutput>
+      <DependentUpon>TicketsDBModel.edmx</DependentUpon>
+      <LastGenOutput>TicketsDBModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TicketsDB.edmx.diagram">
-      <DependentUpon>TicketsDB.edmx</DependentUpon>
+    <Content Include="TicketsDBModel.edmx.diagram">
+      <DependentUpon>TicketsDBModel.edmx</DependentUpon>
     </Content>
-    <Content Include="TicketsDB.tt">
+    <Content Include="TicketsDBModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketsDB.edmx</DependentUpon>
-      <LastGenOutput>TicketsDB.cs</LastGenOutput>
+      <DependentUpon>TicketsDBModel.edmx</DependentUpon>
+      <LastGenOutput>TicketsDBModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +320,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

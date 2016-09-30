@@ -14,6 +14,17 @@ namespace task_omr
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+
+            //var configuration = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+            //var connectionString = configuration.ConnectionStrings.ConnectionStrings["ConnStringAlias"].ConnectionString;
+            //if (!connectionString.Contains("multipleactiveresultsets=True;"))
+            //{
+            //    connectionString = connectionString.TrimEnd('\'');
+            //    connectionString = connectionString += "multipleactiveresultsets=True;\'";
+            //    configuration.ConnectionStrings.ConnectionStrings["ConnStringAlias"].ConnectionString = connectionString;
+            //    configuration.Save();
+            //}
+
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

@@ -24,8 +24,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @if (Request.IsAuthenticated)
-                    {
+                    @*@if (Request.IsAuthenticated)*@
+                    @*  *@{
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" id="dropdownCommonMenu" data-toggle="dropdown">Tickets</a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownCommonMenu">
@@ -38,7 +38,7 @@
                                 <li role="menuitem">@Html.ActionLink("My orders", "OrdersInfo", "Tickets")</li>
                             </ul>
                         </li>
-                    }
+                    @*  *@}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

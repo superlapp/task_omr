@@ -11,6 +11,7 @@ using task_omr.Models;
 namespace task_omr.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

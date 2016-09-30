@@ -7,6 +7,7 @@ using task_omr.Helpers;
 
 namespace task_omr.Controllers
 {
+    [Authorize]
     [RequireHttps]
     public class TicketsController : Controller
     {

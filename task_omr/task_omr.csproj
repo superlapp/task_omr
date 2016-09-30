@@ -171,6 +171,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="AspNetUser.cs">
+      <DependentUpon>TicketsDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="BusStop.cs">
       <DependentUpon>TicketsDB.tt</DependentUpon>
     </Compile>
@@ -185,6 +188,11 @@
     <Compile Include="Helpers\OrderInfo.cs" />
     <Compile Include="Helpers\SearchBusStopResult.cs" />
     <Compile Include="Helpers\SearchOptions.cs" />
+    <Compile Include="Migrations\201609300807380_init.cs" />
+    <Compile Include="Migrations\201609300807380_init.Designer.cs">
+      <DependentUpon>201609300807380_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -302,7 +310,11 @@
       <LastGenOutput>TicketsDB.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609300807380_init.resx">
+      <DependentUpon>201609300807380_init.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

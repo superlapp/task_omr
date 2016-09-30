@@ -8,6 +8,10 @@ namespace task_omr.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public System.DateTime? BirthDate { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -65,8 +69,16 @@ namespace task_omr.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Firstname")]
+        [Display(Name = "First name")]
         public string Firstname { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Birthdate")]
+        public System.DateTime? BirthDate { get; set; }
 
         [Required]
         [EmailAddress]

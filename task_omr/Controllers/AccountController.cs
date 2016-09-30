@@ -151,7 +151,13 @@ namespace task_omr.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Firstname, Email = model.Email };
+                var user = new ApplicationUser {
+                    FirstName = model.Firstname,
+                    LastName = model.LastName,
+                    BirthDate = model.BirthDate,
+                    UserName = model.Email,
+                    Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -367,7 +373,14 @@ namespace task_omr.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthDate = model.BirthDate
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

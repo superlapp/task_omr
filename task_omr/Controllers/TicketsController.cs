@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using task_omr.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace task_omr.Controllers
 {
@@ -119,13 +120,13 @@ namespace task_omr.Controllers
             //
             Session["voyageID"] = voyageID;
             //
-            //int id = Convert.ToInt32(Session["LoggedUserID"]);
-            //var v = db.AspNetUsers.Where(x => x.Id.Equals(id));
-            //foreach (AspNetUser u in v)
-            //{
-                //ticket.Passenger = u.LastName.Trim() + ", " + u.FirstName.Trim();
-                //ticket.PassengerSeatNum = 1;
-            //}
+            string id = User.Identity.GetUserId();
+            var v = db.AspNetUsers.Where(x => x.Id == id.ToString());
+            foreach (AspNetUser u in v)
+            {
+                ticket.Passenger = u.LastName.Trim() + ", " + u.FirstName.Trim();
+                ticket.PassengerSeatNum = 1;
+            }
             return View(ticket);
         }
 
@@ -154,9 +155,9 @@ namespace task_omr.Controllers
             OrderInfo oi;
             List<OrderInfo> ois = new List<OrderInfo>();
             //-------------------------
-            int id = Convert.ToInt32(Session["LoggedUserID"]);
-            //AspNetUser user = db.AspNetUsers.First(x => x.Id.Equals(id));
-            string fullname = ""; //user.LastName.Trim() + ", " + user.FirstName.Trim();
+            string id = User.Identity.GetUserId();
+            AspNetUser user = db.AspNetUsers.First(x => x.Id == id);
+            string fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
             //-------------------------
             var tickets = db.Tickets.Where(x => x.Passenger.Equals(fullname));
             foreach (Ticket ticket in tickets)
@@ -205,6 +206,5 @@ namespace task_omr.Controllers
             }
             return View();
         }
-
     }
 }

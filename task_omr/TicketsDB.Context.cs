@@ -25,6 +25,7 @@ namespace task_omr
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<BusStop> BusStops { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }

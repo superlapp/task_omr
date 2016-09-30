@@ -13,7 +13,6 @@ using task_omr.Models;
 namespace task_omr.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

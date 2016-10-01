@@ -4,26 +4,19 @@
 
 <div class="jumbotron">
     <h1>Welcome</h1>
-    @if (Request.IsAuthenticated)
+    @if (!Request.IsAuthenticated)
     {
         <p class="lead">Now you can test it</p>
+
+    <h2>Getting started</h2>
+    <h5>View all the list of bus stops: Menu Tickets -> Bus stops</h5>
+    <h5>Searching for a desiring bus stop: Menu Tickets -> Search bus stops</h5>
+    <h5>View a list of all voyages: Menu "Tickets" -> Voyages</h5>
+    <h5>View a list of ordered tickets: Menu "Tickets" -> Orders</h5>
     }
     else
     {
         <p class="lead">To get started please log in</p>
     }
-    @*<p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
-</div>
-
-<div>
-    @if (Request.IsAuthenticated)
-    {
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <h5>View all the list of bus stops: Menu Tickets -> Bus stops</h5>
-            <h5>Searching for a desiring bus stop: Menu Tickets -> Search bus stops</h5>
-            <h5>View a list of all voyages: Menu "Tickets" -> Voyages</h5>
-            <h5>View a list of ordered tickets: Menu "Tickets" -> Orders</h5>
-        </div>
-    }
+    
 </div>

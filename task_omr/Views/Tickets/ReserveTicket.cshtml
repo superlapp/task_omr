@@ -53,5 +53,5 @@
 }
 
 <div>
-    @Html.ActionLink("Home", "Index")
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
 </div>

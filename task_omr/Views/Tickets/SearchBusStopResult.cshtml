@@ -37,5 +37,5 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back", "SearchBusStops")
+    @Html.ActionLink("Back to previous page", null, null, null, new { href = Request.UrlReferrer })
 </div>

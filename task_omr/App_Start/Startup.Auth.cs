@@ -77,16 +77,6 @@ namespace task_omr
                 ClientId = "705472391733-1imt0q8kv7i71lmem20vnvpb24hg8agf.apps.googleusercontent.com",
                 ClientSecret = "qlpHZ2O50yypI_lPhULubrkr"
             });
-            //-------------------------
-            var uriString = ConfigurationManager.AppSettings["SQLSERVER_URI"];
-            var uri = new Uri(uriString);
-            var connectionString = new SqlConnectionStringBuilder
-            {
-                DataSource = uri.Host,
-                InitialCatalog = uri.AbsolutePath.Trim('/'),
-                UserID = uri.UserInfo.Split(':').First(),
-                Password = uri.UserInfo.Split(':').Last(),
-            }.ConnectionString;
         }
     }
 }

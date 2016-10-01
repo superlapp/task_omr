@@ -55,7 +55,8 @@ namespace task_omr
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
-            //-----------------------------------------------------------------
+
+            //-----------------------------------------------------------------External authentication
             app.UseMicrosoftAccountAuthentication(
                 clientId: "7692af49-63de-489e-82a7-b239e5a0bfaa",
                 clientSecret: "n7L64onOqk0jPKvH5Y3hV7P");

@@ -10,176 +10,205 @@ namespace task_omr.Controllers
 {
     public class TicketsController : Controller
     {
-        // GET: Tickets
         //---------------------------------------------------------------------
+        #region BusStops
+
+        // GET: /Tickets/BusStop
         public ActionResult BusStops()
         {
-            var v = new TicketsDBEntities();
-            return View(v.BusStops.ToList());
+            var db = new TicketsDBEntities();
+            return View(db.BusStops.ToList());
         }
 
+        // GET: /Tickets/SearchBusStops
         public ActionResult SearchBusStops()
         {
             return View();
         }
 
+        // POST: /Tickets/SearchBusStopsResult
         [HttpPost]
         public ActionResult SearchBusStopResult(SearchOptions so)
         {
-            TicketsDBEntities db = new TicketsDBEntities();
+            var db = new TicketsDBEntities();
             List<SearchBusStopResult> result = new List<SearchBusStopResult>();
-            //
-            int fc = 0;
-            int p1 = 0;
-            int p2 = 0;
-            int p3 = 0;
-            //
+            //Number of conditions for the search
+            int nc = 0;
+            //Number of passed conditions
+            int pc1 = 0;
+            int pc2 = 0;
+            int pc3 = 0;
+            //Select all bus stops by name
             var busStops = db.BusStops.Where(x => x.Name.Trim().ToUpper().Contains(so.BusStopName.ToUpper()));
             foreach (BusStop bs in busStops)
             {
+                //Select all voyages by bus stop ID
                 var voyages = db.Voyages.Where(x => x.DepBusStopID.Equals(bs.Id) || x.ArrBusStopID.Equals(bs.Id));
                 //
                 foreach (Voyage v in voyages)
                 {
+                    //If checked departure/arrival conditions
                     if (so.IsDepStation == true && so.IsArrStation == true)
                     {
-                        fc++;
-                        p1++;
+                        //Increase the number of conditions
+                        nc++;
+                        //Increase the number of passed conditions
+                        pc1++;
                     }
                     else
                     {
+                        //If checked departure condition
                         if (so.IsDepStation == true)
                         {
-                            fc++;
+                            nc++;
                             if (v.DepBusStopID.Equals(bs.Id))
                             {
-                                p1++;
+                                pc1++;
                             }
                         }
                         else
                         {
+                            //If checked arrival condition
                             if (so.IsArrStation == true)
                             {
-                                fc++;
+                                nc++;
                                 if (v.ArrBusStopID.Equals(bs.Id))
                                 {
-                                    p2++;
+                                    pc2++;
                                 }
                             }
                         }
                     }
-
+                    //If checked date condition
                     if (so.UseDT == true)
                     {
-                        fc++;
+                        nc++;
                         DateTime dt = Convert.ToDateTime(so.DT);
                         if (v.DepDateTime == dt)
                         {
-                            p3++;
+                            pc3++;
                         }
                     }
-
-                    //---------------------------------------------------------
-                    if (fc != 0)
+                    //Cheking the number of conditions and the number of passed conditions
+                    if (nc != 0)
                     {
-                        if (fc == (p1 + p2 + p3))
+                        if (nc == (pc1 + pc2 + pc3))
                         {
+                            //If the number of conditions equals the number of passed conditions
+                            //Add the result
                             SearchBusStopResult ss = new SearchBusStopResult();
                             ss.BusStopName = bs.Name;
                             ss.DepDateTime = v.DepDateTime.ToString();
                             ss.VoyageName = v.VoyageName;
                             result.Add(ss);
                         }
-                        //
-                        fc = 0;
-                        p1 = 0;
-                        p2 = 0;
-                        p3 = 0;
+                        //Reset counters
+                        nc = 0;
+                        pc1 = 0;
+                        pc2 = 0;
+                        pc3 = 0;
                     }
                 }
             }
             //
             return View(result.ToList());
         }
+
+        #endregion
         //---------------------------------------------------------------------
+        #region Reservation
+
+        // GET: /Tickets/Voyages
         public ActionResult Voyages()
         {
-            var v = new TicketsDBEntities();
-            return View(v.Voyages.ToList());
+            var db = new TicketsDBEntities();
+            return View(db.Voyages.ToList());
         }
 
+        // GET: /Tickets/ReserveTicket
         public ActionResult ReserveTicket(int voyageID)
         {
-            TicketsDBEntities db = new TicketsDBEntities();
-            Ticket ticket = new Ticket();
-            //
+            var db = new TicketsDBEntities();
+            //Create a new ticket
+            var ticket = new Ticket();
+            //Get the ID of the selected voyage
             Session["voyageID"] = voyageID;
-            //
-            string id = User.Identity.GetUserId();
+            //Get the ID of logged user
+            var id = User.Identity.GetUserId();
+            //Search the logged user by id
             var v = db.AspNetUsers.Where(x => x.Id == id.ToString());
             foreach (AspNetUser u in v)
             {
+                //Fill the new ticket information
                 ticket.Passenger = u.LastName.Trim() + ", " + u.FirstName.Trim();
                 ticket.PassengerSeatNum = 1;
             }
+            // GET: /Tickets/ReserveTicket
             return View(ticket);
         }
 
+        // POST: /Tickets/OrdersInfo
         [HttpPost]
         public ActionResult ReserveTicket(Ticket ticket)
         {
-            TicketsDBEntities db = new TicketsDBEntities();
-            //
-            Order order = new Order();
+            var db = new TicketsDBEntities();
+            //Create a new order
+            var order = new Order();
             order.VoyageID = Convert.ToInt32(Session["voyageID"]);
+            //Set status
             order.Status = Helper.ORDER_STATUS_RESERVED;
             db.Orders.Add(order);
+            //Save order
             db.SaveChanges();
-            //
+            //-------------------------
             ticket.OrderID = order.Id;
+            //Set status
             ticket.Status = Helper.ORDER_STATUS_RESERVED;
             db.Tickets.Add(ticket);
+            //Save ticket
             db.SaveChanges();
-            //
+            //Display orders of the current user
             return RedirectToAction("OrdersInfo", "Tickets");
         }
-        //---------------------------------------------------------------------
+
+        // GET: /Tickets/OrdersInfo
         public ActionResult OrdersInfo()
         {
             var db = new TicketsDBEntities();
-            OrderInfo oi;
-            List<OrderInfo> ois = new List<OrderInfo>();
-            //-------------------------
-            string id = User.Identity.GetUserId();
-            AspNetUser user = db.AspNetUsers.First(x => x.Id == id);
-            string fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
-            //-------------------------
+            OrderInfo orderInfo;
+            //Create a list to display information
+            List<OrderInfo> orderInfoList = new List<OrderInfo>();
+            //Construct the user's full name
+            var id = User.Identity.GetUserId();
+            var user = db.AspNetUsers.First(x => x.Id == id);
+            var fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
+            //Select all tickets by the passenger
             var tickets = db.Tickets.Where(x => x.Passenger.Equals(fullname));
             foreach (Ticket ticket in tickets)
             {
                 Order order = db.Orders.First(x => x.Id.Equals(ticket.OrderID));
                 Voyage voyage = db.Voyages.First(x => x.Id.Equals(order.VoyageID));
-                //
-                oi = new OrderInfo();
-                oi.OrderId = order.Id;
-                oi.VoyageId = voyage.Id;
-                oi.VoyageName = voyage.VoyageName.Trim();
-                oi.DepDT = voyage.DepDateTime;
-                oi.ArrDT = voyage.ArrDateTime;
-                oi.SeatNumber = ticket.PassengerSeatNum;
-                oi.Price = voyage.TicketCost.ToString() + " RUB";
-                oi.Status = order.Status;
-                ois.Add(oi);
+                //Filling all the available information
+                orderInfo = new OrderInfo();
+                orderInfo.OrderId = order.Id;
+                orderInfo.VoyageId = voyage.Id;
+                orderInfo.VoyageName = voyage.VoyageName.Trim();
+                orderInfo.DepDT = voyage.DepDateTime;
+                orderInfo.ArrDT = voyage.ArrDateTime;
+                orderInfo.SeatNumber = ticket.PassengerSeatNum;
+                orderInfo.Price = voyage.TicketCost.ToString() + " RUB";
+                orderInfo.Status = order.Status;
+                orderInfoList.Add(orderInfo);
             }
             //
-            return View(ois.ToList());
+            return View(orderInfoList.ToList());
         }
 
-        //[Authorize]
+        // GET: /Tickets/OrdersInfo
         public ActionResult ProcessOrder(string process, int orderId)
         {
             var db = new TicketsDBEntities();
-            //
+            //Selection of actions depending on the process
             switch (process)
             {
                 case "purchase":
@@ -201,5 +230,8 @@ namespace task_omr.Controllers
             }
             return View();
         }
+        
+        #endregion
+        //---------------------------------------------------------------------
     }
 }

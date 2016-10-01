@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<task_omr.Helpers.OrderInfo>
 
 @{
-    ViewBag.Title = "Orders info";
+    ViewBag.Title = "Your orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -64,3 +64,7 @@
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Home", "Index")
+</div>

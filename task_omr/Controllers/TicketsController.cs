@@ -10,14 +10,13 @@ namespace task_omr.Controllers
 {
     public class TicketsController : Controller
     {
-        TicketsDBEntities db = new TicketsDBEntities();
-
         //---------------------------------------------------------------------
         #region BusStops
 
         // GET: /Tickets/BusStop
         public ActionResult BusStops()
         {
+            var db = new TicketsDBEntities();
             return View(db.BusStops.ToList());
         }
 
@@ -39,6 +38,7 @@ namespace task_omr.Controllers
             int pc2 = 0;
             int pc3 = 0;
             //Select all bus stops by name
+            var db = new TicketsDBEntities();
             var busStops = db.BusStops.Where(x => x.Name.Trim().ToUpper().Contains(so.BusStopName.ToUpper()));
             foreach (BusStop bs in busStops)
             {
@@ -121,6 +121,7 @@ namespace task_omr.Controllers
         // GET: /Tickets/Voyages
         public ActionResult Voyages()
         {
+            var db = new TicketsDBEntities();
             return View(db.Voyages.ToList());
         }
 
@@ -134,6 +135,7 @@ namespace task_omr.Controllers
             //Get the ID of logged user
             var id = User.Identity.GetUserId();
             //Search the logged user by id
+            var db = new TicketsDBEntities();
             var v = db.AspNetUsers.Where(x => x.Id == id.ToString());
             foreach (AspNetUser u in v)
             {
@@ -149,6 +151,7 @@ namespace task_omr.Controllers
         [HttpPost]
         public ActionResult ReserveTicket(Ticket ticket)
         {
+            var db = new TicketsDBEntities();
             //Create a new order
             var order = new Order();
             order.VoyageID = Convert.ToInt32(Session["voyageID"]);
@@ -177,6 +180,7 @@ namespace task_omr.Controllers
             //Construct the user's full name
             if (User != null)
             {
+                var db = new TicketsDBEntities();
                 var id = User.Identity.GetUserId();
                 var user = db.AspNetUsers.First(x => x.Id == id);
                 var fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
@@ -206,6 +210,7 @@ namespace task_omr.Controllers
         // GET: /Tickets/OrdersInfo
         public ActionResult ProcessOrder(string process, int orderId)
         {
+            var db = new TicketsDBEntities();
             //Selection of actions depending on the process
             switch (process)
             {

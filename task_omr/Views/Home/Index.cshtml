@@ -4,7 +4,7 @@
 
 <div class="jumbotron">
     <h1>Welcome</h1>
-    @if (!Request.IsAuthenticated)
+    @if (Request.IsAuthenticated)
     {
         <p class="lead">Now you can test it</p>
 

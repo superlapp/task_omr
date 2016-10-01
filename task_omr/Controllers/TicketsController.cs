@@ -10,13 +10,14 @@ namespace task_omr.Controllers
 {
     public class TicketsController : Controller
     {
+        TicketsDBEntities db = new TicketsDBEntities();
+
         //---------------------------------------------------------------------
         #region BusStops
 
         // GET: /Tickets/BusStop
         public ActionResult BusStops()
         {
-            var db = new TicketsDBEntities();
             return View(db.BusStops.ToList());
         }
 
@@ -30,7 +31,6 @@ namespace task_omr.Controllers
         [HttpPost]
         public ActionResult SearchBusStopResult(SearchOptions so)
         {
-            var db = new TicketsDBEntities();
             List<SearchBusStopResult> result = new List<SearchBusStopResult>();
             //Number of conditions for the search
             int nc = 0;
@@ -121,14 +121,12 @@ namespace task_omr.Controllers
         // GET: /Tickets/Voyages
         public ActionResult Voyages()
         {
-            var db = new TicketsDBEntities();
             return View(db.Voyages.ToList());
         }
 
         // GET: /Tickets/ReserveTicket
         public ActionResult ReserveTicket(int voyageID)
         {
-            var db = new TicketsDBEntities();
             //Create a new ticket
             var ticket = new Ticket();
             //Get the ID of the selected voyage
@@ -151,7 +149,6 @@ namespace task_omr.Controllers
         [HttpPost]
         public ActionResult ReserveTicket(Ticket ticket)
         {
-            var db = new TicketsDBEntities();
             //Create a new order
             var order = new Order();
             order.VoyageID = Convert.ToInt32(Session["voyageID"]);
@@ -174,7 +171,6 @@ namespace task_omr.Controllers
         // GET: /Tickets/OrdersInfo
         public ActionResult OrdersInfo()
         {
-            var db = new TicketsDBEntities();
             OrderInfo orderInfo;
             //Create a list to display information
             List<OrderInfo> orderInfoList = new List<OrderInfo>();
@@ -207,7 +203,6 @@ namespace task_omr.Controllers
         // GET: /Tickets/OrdersInfo
         public ActionResult ProcessOrder(string process, int orderId)
         {
-            var db = new TicketsDBEntities();
             //Selection of actions depending on the process
             switch (process)
             {

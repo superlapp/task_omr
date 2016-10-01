@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task_omr", "task_omr\task_omr.csproj", "{358DA63F-E94F-4D33-82A8-633E91FB856A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "task_omr.Tests", "task_omr.Tests\task_omr.Tests.csproj", "{13E57B3C-4C8A-4A3C-93ED-D9E24D23C090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{358DA63F-E94F-4D33-82A8-633E91FB856A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{358DA63F-E94F-4D33-82A8-633E91FB856A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{358DA63F-E94F-4D33-82A8-633E91FB856A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E57B3C-4C8A-4A3C-93ED-D9E24D23C090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E57B3C-4C8A-4A3C-93ED-D9E24D23C090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E57B3C-4C8A-4A3C-93ED-D9E24D23C090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E57B3C-4C8A-4A3C-93ED-D9E24D23C090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

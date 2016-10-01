@@ -13,41 +13,26 @@ namespace task_omr.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Test_Index()
         {
-            // Arrange
             HomeController controller = new HomeController();
-
-            // Act
             ViewResult result = controller.Index() as ViewResult;
-
-            // Assert
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void About()
+        public void Test_About()
         {
-            // Arrange
             HomeController controller = new HomeController();
-
-            // Act
             ViewResult result = controller.About() as ViewResult;
-
-            // Assert
             Assert.AreEqual("Test task", result.ViewBag.Message);
         }
 
         [TestMethod]
-        public void Contact()
+        public void Test_Contact()
         {
-            // Arrange
             HomeController controller = new HomeController();
-
-            // Act
             ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
             Assert.IsNotNull(result);
         }
     }

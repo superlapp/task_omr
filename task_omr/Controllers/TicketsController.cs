@@ -175,26 +175,29 @@ namespace task_omr.Controllers
             //Create a list to display information
             List<OrderInfo> orderInfoList = new List<OrderInfo>();
             //Construct the user's full name
-            var id = User.Identity.GetUserId();
-            var user = db.AspNetUsers.First(x => x.Id == id);
-            var fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
-            //Select all tickets by the passenger
-            var tickets = db.Tickets.Where(x => x.Passenger.Equals(fullname));
-            foreach (Ticket ticket in tickets)
+            if (User != null)
             {
-                Order order = db.Orders.First(x => x.Id.Equals(ticket.OrderID));
-                Voyage voyage = db.Voyages.First(x => x.Id.Equals(order.VoyageID));
-                //Filling all the available information
-                orderInfo = new OrderInfo();
-                orderInfo.OrderId = order.Id;
-                orderInfo.VoyageId = voyage.Id;
-                orderInfo.VoyageName = voyage.VoyageName.Trim();
-                orderInfo.DepDT = voyage.DepDateTime;
-                orderInfo.ArrDT = voyage.ArrDateTime;
-                orderInfo.SeatNumber = ticket.PassengerSeatNum;
-                orderInfo.Price = voyage.TicketCost.ToString() + " RUB";
-                orderInfo.Status = order.Status;
-                orderInfoList.Add(orderInfo);
+                var id = User.Identity.GetUserId();
+                var user = db.AspNetUsers.First(x => x.Id == id);
+                var fullname = user.LastName.Trim() + ", " + user.FirstName.Trim();
+                //Select all tickets by the passenger
+                var tickets = db.Tickets.Where(x => x.Passenger.Equals(fullname));
+                foreach (Ticket ticket in tickets)
+                {
+                    Order order = db.Orders.First(x => x.Id.Equals(ticket.OrderID));
+                    Voyage voyage = db.Voyages.First(x => x.Id.Equals(order.VoyageID));
+                    //Filling all the available information
+                    orderInfo = new OrderInfo();
+                    orderInfo.OrderId = order.Id;
+                    orderInfo.VoyageId = voyage.Id;
+                    orderInfo.VoyageName = voyage.VoyageName.Trim();
+                    orderInfo.DepDT = voyage.DepDateTime;
+                    orderInfo.ArrDT = voyage.ArrDateTime;
+                    orderInfo.SeatNumber = ticket.PassengerSeatNum;
+                    orderInfo.Price = voyage.TicketCost.ToString() + " RUB";
+                    orderInfo.Status = order.Status;
+                    orderInfoList.Add(orderInfo);
+                }
             }
             //
             return View(orderInfoList.ToList());

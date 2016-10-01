@@ -13,15 +13,26 @@ namespace task_omr.Tests.Controllers
     public class TicketsControllerTest
     {
         [TestMethod]
-        public void SearchBusStops()
+        public void Test_SearchBusStops()
         {
-            // Arrange
-            TicketsController controller = new TicketsController();
+            var controller = new TicketsController();
+            var result = controller.SearchBusStops() as ViewResult;
+            Assert.IsNotNull(result);
+        }
 
-            // Act
-            ViewResult result = controller.SearchBusStops() as ViewResult;
+        [TestMethod]
+        public void Test_OrdersInfo()
+        {
+            var controller = new TicketsController();
+            var result = controller.OrdersInfo() as ViewResult;
+            Assert.IsNotNull(result);
+        }
 
-            // Assert
+        [TestMethod]
+        public void Test_ProcessOrder()
+        {
+            var controller = new TicketsController();
+            var result = controller.ProcessOrder(Helpers.Helper.ORDER_STATUS_PURCHASED, 1) as ViewResult;
             Assert.IsNotNull(result);
         }
     }
